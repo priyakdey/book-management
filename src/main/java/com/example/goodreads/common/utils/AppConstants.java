@@ -14,5 +14,6 @@ public interface AppConstants {
     String USER_NAME_EXISTS = "This username is already registered";
     String USER_NAME_NOT_EXISTS = "User Name does not exists";
     String INVALID_BOOK_REQUEST_MESSAGE = "Invalid Request";
+    String BOOK_NOT_FOUND_EXCEPTION = "Book does not exists";
 }
 

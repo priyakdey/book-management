@@ -1,10 +1,18 @@
 package com.example.goodreads.data.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "book")
+@Table(name = "book",
+        indexes = {
+            @Index(name = "index_book_title", columnList = "title")
+        })
+@NamedQueries(
+        @NamedQuery(name = "query.Book.findBookByTitle",
+                    query = "select b from Book b join fetch b.authors a where b.title = :title")
+)
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "book-id-gen")
@@ -27,7 +35,7 @@ public class Book {
     @JoinTable(name = "author_book_join",
                 joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
                 inverseJoinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"))
-    private List<Author> authors;
+    private List<Author> authors = new ArrayList<>();
 
 
     @OneToMany(fetch = FetchType.LAZY,
@@ -88,10 +96,6 @@ public class Book {
     }
 
     public void addBookToAuthors() {
-//        for (Author author : authors) {
-//            author.getAuthoredBooks().add(this);
-//        }
-//        System.out.println();
         authors.forEach(author -> {
             author.getAuthoredBooks().add(this);
         });

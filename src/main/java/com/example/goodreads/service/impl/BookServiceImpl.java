@@ -21,4 +21,9 @@ public class BookServiceImpl implements IBookService {
     public void addBook(BookDTO bookDTO) {
         this.bookDAO.addBook(bookDTO);
     }
+
+    @Override
+    public BookDTO getBookByTitle(String title) {
+        return this.bookDAO.getBookByTitle(title);
+    }
 }

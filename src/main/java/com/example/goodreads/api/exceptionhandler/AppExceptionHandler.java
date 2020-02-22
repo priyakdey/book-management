@@ -1,5 +1,6 @@
 package com.example.goodreads.api.exceptionhandler;
 
+import com.example.goodreads.api.exception.BookNotFoundException;
 import com.example.goodreads.api.exception.InvalidRequestException;
 import com.example.goodreads.api.exception.UserNameDoesNotExistsException;
 import com.example.goodreads.api.exception.UserNameExistsException;
@@ -28,6 +29,13 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = UserNameDoesNotExistsException.class)
     public ResponseEntity<ErrorResponse>
                         userNameDoesNotExistsExceptionHandler(UserNameDoesNotExistsException ex, WebRequest request) {
+        ErrorResponse response = generateErrorResponse(ex);
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value = BookNotFoundException.class)
+    public ResponseEntity<ErrorResponse>
+                        bookNotFoundExceptionHandler(BookNotFoundException ex, WebRequest webRequest) {
         ErrorResponse response = generateErrorResponse(ex);
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
