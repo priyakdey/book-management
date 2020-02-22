@@ -1,0 +1,25 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /book-management
+
+spring:
+  application:
+    name: goodreads
+  datasource:
+    url: jdbc:mysql://192.168.1.6:3306/book_review_system?useSSL=false
+    username: bookreviewdb
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10
+      auto-commit: false
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    properties:
+      hibernate:
+        hbm2ddl.auto: create
+        generate_statistics: true
+        show_sql: true
+        current_session_context_class: thread
+
