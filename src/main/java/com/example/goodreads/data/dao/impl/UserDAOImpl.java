@@ -7,6 +7,7 @@ import com.example.goodreads.common.utils.AppConstants;
 import com.example.goodreads.data.dao.IUserDAO;
 import com.example.goodreads.data.entity.User;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
@@ -18,8 +19,9 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements IUserDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public UserDAOImpl() {
-        super(User.class);
+    @Autowired
+    public UserDAOImpl(EntityManager entityManager) {
+        super(entityManager, User.class);
     }
 
     @Override

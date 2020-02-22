@@ -3,15 +3,16 @@ package com.example.goodreads.data.dao.impl;
 import com.example.goodreads.data.dao.IGenericDAO;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 
-public abstract class GenericDAOImpl<E> implements IGenericDAO<E> {
-    @PersistenceContext
+
+public class GenericDAOImpl<E> implements IGenericDAO<E> {
     private EntityManager entityManager;
     private Class<E> entityType;
 
-    GenericDAOImpl(Class<E> entityType) {
+
+    GenericDAOImpl(EntityManager entityManager, Class<E> entityType) {
+        this.entityManager = entityManager;
         this.entityType = entityType;
     }
 
@@ -28,7 +29,7 @@ public abstract class GenericDAOImpl<E> implements IGenericDAO<E> {
      * Generic method to fetch entity by primary id
      * @param id primary key of the entity
      * @return the managed instance which was fectched against the id
-     * @throws @{@link NullPointerException} if entity not found
+     * @throws NullPointerException if entity not found
      */
     @Override
     public E fetchEntityById(Serializable id) {
