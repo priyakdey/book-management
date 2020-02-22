@@ -9,10 +9,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
+import java.util.List;
 
 @Repository
 public class BookDAOImpl extends GenericDAOImpl<Book> implements IBookDAO {
@@ -46,5 +44,17 @@ public class BookDAOImpl extends GenericDAOImpl<Book> implements IBookDAO {
         } catch (NoResultException ex) {
             throw new BookNotFoundException(AppConstants.BOOK_NOT_FOUND_EXCEPTION);
         }
+    }
+
+
+    @Override
+    public List<Book> getBooksLikeTitle(String title) {
+        String queryString = "select b from Book b" + " " +
+                             "INNER JOIN FETCH b.authors a" + " " +
+                             "where b.title like :title";
+        TypedQuery<Book> query = entityManager.createQuery(queryString, Book.class);
+        query.setParameter("title", title + "%");
+        query.setLockMode(LockModeType.PESSIMISTIC_READ);
+        return query.getResultList();
     }
 }

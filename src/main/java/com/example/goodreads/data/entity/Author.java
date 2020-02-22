@@ -16,7 +16,7 @@ public class Author {
     @Column(name = "full_name", nullable = false)
     private String fullName;
 
-    @ManyToMany(fetch = FetchType.EAGER,
+    @ManyToMany(fetch = FetchType.LAZY,
                 cascade = {CascadeType.PERSIST, CascadeType.REFRESH},
                 mappedBy = "authors")
     private List<Book> authoredBooks = new ArrayList<>();

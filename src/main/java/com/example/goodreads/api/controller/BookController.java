@@ -19,11 +19,11 @@ import java.util.List;
 @RequestMapping(path = "/books",
                 consumes = MediaType.APPLICATION_JSON_VALUE,
                 produces = MediaType.APPLICATION_JSON_VALUE)
-public class BookResource {
+public class BookController {
     private IBookService bookService;
 
     @Autowired
-    public BookResource(IBookService bookService) {
+    public BookController(IBookService bookService) {
         this.bookService = bookService;
     }
 

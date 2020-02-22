@@ -18,7 +18,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     properties:
       hibernate:
-        hbm2ddl.auto: create
+        hbm2ddl.auto: validate
         generate_statistics: true
         show_sql: true
         current_session_context_class: thread

@@ -30,7 +30,7 @@ public class Book {
     private Double avgRating;
 
 
-    @ManyToMany(fetch = FetchType.EAGER,
+    @ManyToMany(fetch = FetchType.LAZY,
                 cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "author_book_join",
                 joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
